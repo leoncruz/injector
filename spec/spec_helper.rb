@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-require "injector"
-
 require 'simplecov'
 
 SimpleCov.start
+
+require 'injector'
+
+require 'byebug'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
