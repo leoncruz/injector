@@ -2,6 +2,6 @@
 
 RSpec.describe Injector do
   it 'has a version number' do
-    expect(Injector::VERSION).not_to be_nil
+    expect(Injector::VERSION).to be '0.0.1'
   end
 end
