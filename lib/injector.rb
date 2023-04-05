@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'injector/version'
-require_relative 'injector/dependencies'
+require_relative 'injector/contract'
 require_relative 'injector/injectable'
 require_relative 'injector/inject'
 

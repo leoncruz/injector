@@ -16,9 +16,7 @@ RSpec.describe Injector do
       let(:service_class) { Class.new }
 
       let(:service_dependencies) do
-        Class.new do
-          extend Injector::Dependencies
-
+        Class.new(Injector::Contract) do
           register :service, -> { ServiceClass.new }
         end
       end
