@@ -1,0 +1,17 @@
+require:
+  - rubocop-rake
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.7.6
+
+  Exclude:
+    - 'bin/*'
+    - 'tmp/*'
+    - 'spec/spec_helper.rb'
+
+  NewCops: enable
+
+Metrics:
+  Enabled: false
