@@ -5,17 +5,17 @@ module Injector
 
   # Singleton class to save instances and retrieve
   class Inject
-    @injectables = []
+    @injectables = {}
 
     class << self
       attr_accessor :injectables
 
-      def register(name, callback)
-        @injectables << Injectable.new(name, callback)
+      def register(contract_name, name, callback)
+        (@injectables[contract_name] ||= []) << Injectable.new(name, callback)
       end
 
-      def find(name)
-        injectable = @injectables.find { |i| i.name == name }
+      def find(contract_name, name)
+        injectable = (@injectables[contract_name] ||= []).find { |i| i.name == name }
 
         raise InjectableNotFound, "An instance with name '#{name}' was not registered" unless injectable
 

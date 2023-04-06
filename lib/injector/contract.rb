@@ -5,11 +5,15 @@ module Injector
   class Contract
     class << self
       def register(name, callback)
-        Inject.register(name, callback)
+        class_name = to_s
+
+        Inject.register(class_name, name, callback)
       end
 
       def find(name)
-        Inject.find(name)
+        class_name = to_s
+
+        Inject.find(class_name, name)
       end
     end
   end

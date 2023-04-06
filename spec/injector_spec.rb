@@ -5,9 +5,9 @@ RSpec.describe Injector do
     context 'when Injector is included into class' do
       let(:dummy_class) { Class.new { include Injector } }
 
-      it 'has to insert on class the ClassMethods as an ancestor' do
-        expect(dummy_class.methods.include?(:attr_injector)).to be true
-      end
+      it { expect(dummy_class.methods.include?(:attr_injector)).to be true }
+
+      it { expect(dummy_class.methods.include?(:contract)).to be true }
     end
   end
 
@@ -15,7 +15,7 @@ RSpec.describe Injector do
     context 'when exist a instance for given injector name' do
       let(:service_class) { Class.new }
 
-      let(:service_dependencies) do
+      let(:service_contract) do
         Class.new(Injector::Contract) do
           register :service, -> { ServiceClass.new }
         end
@@ -25,13 +25,17 @@ RSpec.describe Injector do
         Class.new do
           include Injector
 
+          contract ServiceDependencies
+
           attr_injector :service
         end
       end
 
       before do
+        allow(Injector::Contract).to receive(:to_s).and_return('ServiceContract')
+
         stub_const 'ServiceClass', service_class
-        stub_const 'ServiceDependencies', service_dependencies
+        stub_const 'ServiceDependencies', service_contract
       end
 
       it 'when exist an instance for given name has to retrieve lazyly' do
@@ -50,5 +54,27 @@ RSpec.describe Injector do
         end.to raise_error Injector::InjectableNotFound
       end
     end
+  end
+
+  describe '.contract' do
+    # rubocop:disable Lint/ConstantDefinitionInBlock, Rspec/LeakyConstantDeclaration
+    it 'has to define instance variabel on class level with informed class name as value' do
+      ServiceClass = Class.new
+
+      class ServiceContract < Injector::Contract
+        register :service, -> { ServiceClass.new }
+      end
+
+      class DummyClass
+        include Injector
+
+        contract ServiceContract
+
+        attr_injector :service
+      end
+
+      expect(DummyClass.instance_variable_get(:@contractor_class)).to eq 'ServiceContract'
+    end
+    # rubocop:enable Lint/ConstantDefinitionInBlock, Rspec/LeakyConstantDeclaration
   end
 end

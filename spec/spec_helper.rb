@@ -20,6 +20,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    Injector::Inject.injectables = []
+    Injector::Inject.injectables = {}
   end
 end
