@@ -1,0 +1,20 @@
+name: Tests
+
+on:
+  workflow_run:
+    workflows: [Rubycritic]
+    types:
+      - completed
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.6
+      - run: bundle install
+      - name: tests
+        run: bundle exec rspec
