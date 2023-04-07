@@ -13,7 +13,7 @@ module Injector
       def find(name)
         class_name = to_s
 
-        Inject.find(class_name, name)
+        Inject.find(class_name, name).callback.call
       end
     end
   end
