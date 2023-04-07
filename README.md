@@ -1,3 +1,6 @@
+[![Rubocop](https://github.com/leoncruz/injector/actions/workflows/rubocop.workflow.yml/badge.svg)](https://github.com/leoncruz/injector/actions/workflows/rubocop.workflow.yml)
+[![Rubycritic](https://github.com/leoncruz/injector/actions/workflows/rubycritic.workflow.yml/badge.svg)](https://github.com/leoncruz/injector/actions/workflows/rubycritic.workflow.yml)
+[![Tests](https://github.com/leoncruz/injector/actions/workflows/test.workflow.yml/badge.svg)](https://github.com/leoncruz/injector/actions/workflows/test.workflow.yml)
 # Injector
 
 ## Usage
