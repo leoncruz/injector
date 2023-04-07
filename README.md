@@ -1,39 +1,71 @@
 # Injector
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/injector`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'injector'
-```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install injector
-
 ## Usage
 
-TODO: Write usage instructions here
+First, declare your contract to your class
 
-## Development
+```ruby
+class CreateUserContract < Injector::Contract
+  register :api_client, -> { ApiClient.new }
+end
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+The `register` method receive a key, as a identifier of that instance and a proc that returns the object to be injectable into class
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+class CreateUser
+  include Injector
 
-## Contributing
+  contract CreateUserContract
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/injector.
+  attr_injector :api_client
+
+  def initialize(user_params)
+    @user_params = user_params
+  end
+
+  def create
+    api_client.post @user_params
+  end
+end
+```
+In your service class, include the `Injector` module. This will be add the `contract` and `attr_injector` methods
+
+The `contract` method receives a class, your contract defined previously
+
+The `attr_injector` receives the key, has to be the same key defined in the contract and add a method in service class to retrieve the instance.
+If you define more than one instance on contract class, you could add an `attr_injector` for each instance. Ex:
+
+```ruby
+class CreateUserContract < Injector::Contract
+  register :api_client, -> { ApiClient.new }
+  register :notify_user, ->  { NotifyUser.new }
+  register :user_model, ->  { User }
+end
+
+class CreateUser
+  include Injector
+
+  contract CreateUserContract
+
+  attr_injector :api_client
+  attr_injector :notify_user
+  attr_injector :user_model
+
+  def initialize(user_params)
+    @user_params = user_params
+  end
+
+  def create
+    user = user_model.save @user_params
+
+    api_client.post '/users/create/token', { id: user.id }
+
+    notify_user.notify(user)
+  end
+end
+```
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The code is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
