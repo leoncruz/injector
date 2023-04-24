@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Injector
+module SimpleInjector
   class InjectableNotFound < StandardError; end
 
   # Singleton class to save instances and retrieve

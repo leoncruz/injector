@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/injector/version'
+require_relative 'lib/simple_injector/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'simple_injector'
-  spec.version = Injector::VERSION
+  spec.version = SimpleInjector::VERSION
   spec.authors = ['Leon Cruz']
   spec.email = ['leon.cruz.teixeira@gmail.com']
 

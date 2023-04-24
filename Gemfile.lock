@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    injector (0.0.1)
+    simple_injector (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -120,7 +120,6 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  injector!
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop (~> 1.21)
@@ -128,6 +127,7 @@ DEPENDENCIES
   rubocop-rake
   rubocop-rspec
   rubycritic
+  simple_injector!
   simplecov
 
 BUNDLED WITH

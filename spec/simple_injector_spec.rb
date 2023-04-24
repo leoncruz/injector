@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe Injector do
+RSpec.describe SimpleInjector do
   describe '.included' do
     context 'when Injector is included into class' do
-      let(:dummy_class) { Class.new { include Injector } }
+      let(:dummy_class) { Class.new { include SimpleInjector } }
 
       it { expect(dummy_class.methods.include?(:attr_injector)).to be true }
 
@@ -16,14 +16,14 @@ RSpec.describe Injector do
       let(:service_class) { Class.new }
 
       let(:service_contract) do
-        Class.new(Injector::Contract) do
+        Class.new(SimpleInjector::Contract) do
           register :service, -> { ServiceClass.new }
         end
       end
 
       let(:dummy_class) do
         Class.new do
-          include Injector
+          include SimpleInjector
 
           contract ServiceDependencies
 
@@ -32,7 +32,7 @@ RSpec.describe Injector do
       end
 
       before do
-        allow(Injector::Contract).to receive(:to_s).and_return('ServiceContract')
+        allow(SimpleInjector::Contract).to receive(:to_s).and_return('ServiceContract')
 
         stub_const 'ServiceClass', service_class
         stub_const 'ServiceDependencies', service_contract
@@ -47,11 +47,11 @@ RSpec.describe Injector do
       it 'has to raise exception' do
         expect do
           Class.new do
-            include Injector
+            include SimpleInjector
 
             attr_injector :service
           end
-        end.to raise_error Injector::InjectableNotFound
+        end.to raise_error SimpleInjector::InjectableNotFound
       end
     end
   end
@@ -61,12 +61,12 @@ RSpec.describe Injector do
     it 'has to define instance variabel on class level with informed class name as value' do
       ServiceClass = Class.new
 
-      class ServiceContract < Injector::Contract
+      class ServiceContract < SimpleInjector::Contract
         register :service, -> { ServiceClass.new }
       end
 
       class DummyClass
-        include Injector
+        include SimpleInjector
 
         contract ServiceContract
 

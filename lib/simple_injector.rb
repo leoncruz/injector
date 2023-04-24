@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'injector/version'
-require_relative 'injector/contract'
-require_relative 'injector/injectable'
-require_relative 'injector/inject'
+require_relative 'simple_injector/version'
+require_relative 'simple_injector/contract'
+require_relative 'simple_injector/injectable'
+require_relative 'simple_injector/inject'
 
 # Entrypoint module
-module Injector
+module SimpleInjector
   def self.included(target)
     target.extend(ClassMethods)
   end

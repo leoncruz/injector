@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Injector
+module SimpleInjector
   # Module to handle instance registrations
   class Contract
     class << self

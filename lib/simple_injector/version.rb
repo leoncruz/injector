@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-module Injector
+module SimpleInjector
   VERSION = '0.0.1'
 end

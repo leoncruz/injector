@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Injector
+module SimpleInjector
   # Class to handle instances to are injectable
   class Injectable
     attr_accessor :name, :callback

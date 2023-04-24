@@ -4,7 +4,7 @@ require 'simplecov'
 
 SimpleCov.start
 
-require 'injector'
+require 'simple_injector'
 
 require 'byebug'
 
@@ -20,6 +20,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    Injector::Inject.injectables = {}
+    SimpleInjector::Inject.injectables = {}
   end
 end
