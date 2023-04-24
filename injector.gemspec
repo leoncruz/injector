@@ -3,7 +3,7 @@
 require_relative 'lib/injector/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'injector'
+  spec.name = 'simple_injector'
   spec.version = Injector::VERSION
   spec.authors = ['Leon Cruz']
   spec.email = ['leon.cruz.teixeira@gmail.com']
