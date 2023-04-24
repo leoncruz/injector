@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['Leon Cruz']
   spec.email = ['leon.cruz.teixeira@gmail.com']
 
-  spec.summary = 'A gem to handle dependency injecto on ruby applications'
-  spec.description = 'A gem to handle dependency injecto on ruby applications'
+  spec.summary = 'A gem to handle dependency injectos on ruby applications'
+  spec.description = 'A gem to handle dependency injectos on ruby applications'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 2.7.0'
 
